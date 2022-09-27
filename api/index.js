@@ -2,9 +2,9 @@ const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-const authRoute = require('./routes/auth')
+const authRoute = require('./routes/auth') 
 
-dotenv.config();                                                //this fn loads environment variables from the .env file
+dotenv.config();                                               //this fn loads environment variables from the .env file
 app.use(express.json());
 
 mongoose.connect(process.env.MONGO_URL)
@@ -16,5 +16,5 @@ mongoose.connect(process.env.MONGO_URL)
 app.use('/api/auth', authRoute)
 
 app.listen('5000', () => {
-    console.log('backend running'); 
+    console.log('backend running');
 })
