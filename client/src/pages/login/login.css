@@ -1,0 +1,62 @@
+.login {
+    /* our topbar is 50 px hence we subtracted it from the 100%... if not done the page will overflow and a scrollbar will be added
+    difference between % and vh is that, using % in an element takes up whole of the length of its parent (be it 10000px) 
+    and  100vh means the element will take 100% of the viewport */
+    height: calc(100vh - 50px);
+    /* linear gradient transitions from one color to another, '255 255 255' is color and 0.5 is opacity, the photo basically 
+        transitions from white 0.5 to white 0.5 hence it is a uniform trnsition and color is lightened */
+    background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url("https://images.pexels.com/photos/768474/pexels-photo-768474.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.loginTitle {
+    font-size: 50px;
+
+}
+
+.loginForm>label {
+    padding: 5px;
+    margin-top: 10px;
+    font-size: 17px;
+    color: black;
+}
+
+.loginForm>input {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.loginForm>input:focus{
+    outline: none;
+}
+
+.loginBtn {
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: lightcoral;
+    cursor: pointer;
+}
+
+.registerBtn {
+    position: absolute;
+    top: 80px;
+    right: 50px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: teal;
+    color: white;
+    cursor: pointer;
+}

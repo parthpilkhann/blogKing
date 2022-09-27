@@ -1,0 +1,4 @@
+username-cfred3116
+pass- ASZwg4W9MRoaux6f
+
+mongodb+srv://cfred3116:<password>@cluster0.l7wx9el.mongodb.net/?retryWrites=true&w=majority

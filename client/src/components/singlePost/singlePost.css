@@ -1,0 +1,54 @@
+.singlePost {
+    flex: 9;
+}
+
+.singlePostWrapper {
+    /* first all the padding is made 20 and then padding-right is made 0 which overrides the prev command */
+    padding: 20px;
+    padding-right: 0px;
+    margin-top: 10px;
+}
+
+.singlePostImage {
+    object-fit: cover;
+    width: 100%;
+    border-radius: 5px;
+    height: 400px;
+}
+
+.singlePostTitle {
+    text-align: center;
+    margin: 10px;
+    font-family: 'Lora', serif;
+    font-size: 28px;
+}
+
+.singlePostEdit {
+    float: right;
+    font-size: 20px;
+}
+
+.singlePostIcon:first-child {
+    margin-left: 10px;
+    color: teal;
+    cursor: pointer;
+}
+
+.singlePostIcon:last-child {
+    margin-left: 10px;
+    color: tomato;
+    cursor: pointer;
+}
+
+.singlePostInfo {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    color: rgb(87, 84, 84);
+}
+
+.singlePostDesc{
+    line-height: 25px;
+    color: rgb(86, 85, 85);
+    font-size: 18px;
+}

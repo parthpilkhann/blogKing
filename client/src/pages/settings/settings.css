@@ -1,0 +1,99 @@
+.settings {
+    display: flex;
+}
+
+.settingsWrapper {
+    flex: 9;
+    padding: 20px;
+    background-color: white;
+}
+
+.settingsTitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.settingsTitleUpdate {
+    font-size: 30px;
+    margin-bottom: 20px;
+    color: lightcoral;
+}
+
+.settingsTitleDelete {
+    color: red;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.settingsForm {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.settingsPP {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 35px;
+}
+
+.settingsPP>img {
+    height: 70px;
+    width: 70px;
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+.settingsPPIcon {
+    font-size: 30px;
+    margin-left: 20px;
+    padding: 5px;
+    color: lightcoral;
+    cursor: pointer;
+}
+
+.settingsUpAcc {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.settingsForm>label {
+    font-size: 20px;
+    margin-top: 20px;
+
+}
+
+.settingsUpAcc>label {
+    font-size: 25px;
+    color: lightcoral;
+
+}
+
+.settingsUpAcc>input {
+    margin: 10px 0px 10px 0px;
+    height: 30px;
+    border: none;
+    border-bottom: 1px solid lightgray;
+}
+
+/* when focus comes on the input tags the outline is not darkened */
+.settingsUpAcc>input:focus {
+    outline: none;
+}
+
+.updateBtn{
+    width: 150px;
+    font-size: 25px;
+    padding: 5px;
+    margin-top: 15px;
+    color: white;
+    background-color: teal;
+    border: none;
+    align-self: center;
+    border-radius: 5px;
+    cursor: pointer;
+}

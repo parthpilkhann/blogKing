@@ -1,0 +1,64 @@
+.write {
+    padding: 40px;
+}
+
+.writeForm {
+    position: relative;
+
+}
+
+.writeFormGroup {
+    display: flex;
+    align-items: center;
+    margin-left: 30px;
+}
+
+.fileInputIcon {
+    font-size: 30px;
+    cursor: pointer;
+    color: gray;
+}
+
+/* pls note that writeInput class is given to both text inputs  */
+.writeInput {
+    font-size: 30px;
+    border: none;
+    padding: 20px;
+    /* vw means viewport width which is in %, ex below means 70% of the width of the viewport */
+    width: 66vw;
+
+}
+
+.writeText {
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 69vw;
+    height: 300px;
+    font-size: 25px;
+}
+
+/* it means when the writeInput gets focused, make the outlines diappear(pls not the title is under focus by default hence no outlines are shown onload ) */
+.writeInput:focus {
+    outline: none;
+}
+
+.writeSubmit {
+    position: absolute;
+    top: 369px;
+    left: 87%;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(7, 180, 180);
+    font-size: 20px;
+    padding: 5px;
+    cursor: pointer;
+    padding: 12px;
+}
+
+.writeFormImage {
+    object-fit: cover;
+    border-radius: 5px;
+    margin-left: 30px;
+    width: 900px;
+    height: 350px;
+}
