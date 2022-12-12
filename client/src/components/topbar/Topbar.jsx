@@ -1,8 +1,15 @@
 import './topbar.css'
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Context } from "../../context/Context";
 
 export default function Topbar() {
-    const user = false;                 // temporary user 
+    const { user, dispatch } = useContext(Context);
+    const PF = "http://localhost:5000/images/"
+
+    const handleLogout = () => {
+        dispatch({ type: "LOGOUT" })
+    }
 
     // in the link tag we had to write 'style={{textDecoration:"none", color: "inherit"}}' bc it is basically a anchor tag which is turned into Link and 
     //it has default properties, to remove those we added none, and for the color we inherited that from its parent.
@@ -13,7 +20,7 @@ export default function Topbar() {
 
     // same thing will be done for the profilepic (i.e image tag), if there is no user logged in then 
     //we will add list items (login and register), jisko ham same class names denge jo home, about vagera ki h, taki font copy hojaye.
-    // 
+
     return (
         <div className='top' >
             <div className='topLeft'>
@@ -29,15 +36,15 @@ export default function Topbar() {
                     <li className='topListItem'><Link className='link' to='/about' >ABOUT</Link></li>
                     <li className='topListItem'><Link className='link' to='/contact' >CONTACT</Link></li>
                     <li className='topListItem'><Link className='link' to='/write' >WRITE</Link></li>
-                    <li className='topListItem'> {user && 'LOGOUT'}</li>
+                    <li className='topListItem' onClick={handleLogout} > {user && 'LOGOUT'}</li>
                 </ul>
             </div>
             <div className='topRight'>
                 {
-                    user ? <img className='topImage' alt=' not available' src="https://media.istockphoto.com/photos/studio-shot-of-an-attractive-young-woman-posing-against-a-grey-picture-id1367668208?s=612x612" />
+                    user ? <Link to="/settings" ><img className='topImage' alt='' src={PF + user.profilePic} /></Link>
                         : (<ul className='topList' >
-                            <li className='topListItem'><Link className='link' style={{ fontSize:'15px' }} to='/login' >LOGIN</Link></li>
-                            <li className='topListItem' ><Link className='link' style={{ fontSize:'15px' }} to='register' >REGISTER</Link></li>
+                            <li className='topListItem'><Link className='link' style={{ fontSize: '15px' }} to='/login' >LOGIN</Link></li>
+                            <li className='topListItem' ><Link className='link' style={{ fontSize: '15px' }} to='register' >REGISTER</Link></li>
                         </ul>)
                 }
                 <i className=" searchIcon fa-solid fa-magnifying-glass"></i>
