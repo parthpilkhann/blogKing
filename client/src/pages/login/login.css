@@ -36,7 +36,7 @@
     border-radius: 5px;
 }
 
-.loginForm>input:focus{
+.loginForm>input:focus {
     outline: none;
 }
 
@@ -47,6 +47,11 @@
     border-radius: 5px;
     background-color: lightcoral;
     cursor: pointer;
+}
+
+.loginBtn:disabled {
+    cursor: not-allowed;
+    background-color: rgb(255, 202, 183);
 }
 
 .registerBtn {

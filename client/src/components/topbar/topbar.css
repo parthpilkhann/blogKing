@@ -37,6 +37,7 @@
     width: 40px;
     border-radius: 50%;
     object-fit: cover;
+    cursor: pointer;
 }
 
 .topList {
@@ -45,14 +46,16 @@
     justify-content: center;
     list-style: none;
 }
-.topListItem{
+
+.topListItem {
     margin-right: 20px;
     font-size: 23px;
     font-weight: 200;
     cursor: pointer;
     letter-spacing: 0px;
 }
-.searchIcon{
+
+.searchIcon {
     font-size: 20px;
     color: #666;
     margin-left: 15px;

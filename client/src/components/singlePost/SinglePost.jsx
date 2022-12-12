@@ -1,27 +1,83 @@
+import axios from 'axios';
+import { useContext, useEffect, useState } from 'react';
+import { useLocation, Link } from 'react-router-dom'
 import './singlePost.css'
+import { Context } from '../../context/Context';
 
 export default function SinglePost() {
+    const location = useLocation();                         // this returns the current url
+    const path = location.pathname.split('/')[2];           // here we took out the id of the post from the current url
+    const [post, setPost] = useState({});
+    const PF = "http://localhost:5000/images/"          // this is the same thing tht we did in post.jsx, we accessed the image from images folder and displayed it here...refer api...index.js and post,jsx for more
+    const { user } = useContext(Context);               // to access the current logged in user.
+    const [title, setTitle] = useState("");             // these three variables are for updating post.
+    const [description, setDescription] = useState("");
+    const [updateMode, setUpdateMode] = useState(false);        // whn this is true we will be able to edit the title and description..for details refer thhe h1 below.
+
+
+    useEffect(() => {
+        const fetchPost = async () => {
+            const res = await axios.get("/posts/" + path);
+            setPost(res.data);                            // the post variable is updated with data from the response of new post
+            setTitle(res.data.title)                      // the title variable is updated with title from the res and that is shown in the title...and when we click edit it is shown by default in the input tag, the main use of this variable is to show the value of input tag by default.
+            setDescription(res.data.description)
+        }
+        fetchPost();
+    }, [path]);                                 // if the path changes the useEffect is triggered and the
+
+    const handleDelete = async () => {
+        try {
+            await axios.delete("/posts/" + path, {
+                data: { username: user.username }
+            });
+            window.location.replace("/");
+        } catch (err) { }
+    }
+
+    const handleUpdate = async () => {
+        try {
+            await axios.put("/posts/" + path, {
+                username: user.username,            // if the names are same they can also be written as title, description, etc.
+                title: title,
+                description: description
+            });
+            setUpdateMode(false);
+        } catch (err) { }
+    }
+
     return (
         <div className='singlePost' >
             <div className="singlePostWrapper">
-                <img
-                    src="https://images.pexels.com/photos/13461809/pexels-photo-13461809.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                {post.photo && <img
+                    src={PF + post.photo}
                     alt="not found"
                     className='singlePostImage'
-                />
-                <h1 className='singlePostTitle'>
-                    Lorem ipsum dolor sit amet lor sit amet.
-                    <div className="singlePostEdit">
-                        <i className="singlePostIcon fa-solid fa-pen-to-square"></i>
-                        <i className="singlePostIcon fa-solid fa-trash"></i>
-                    </div>
-                </h1>
+                />}
+                {updateMode ? <input className='singlePostTitleInput' type="text" value={title} autoFocus onChange={(e) => { setTitle(e.target.value) }} /> : (      /* here if the update Mode is true then we get inputTag in which our old title is already written and if not then the normal h1 is shown. */
+                    <h1 className='singlePostTitle'>
+                        {title}
+                        {post.username === user?.username &&             /* if the username of post fetched from db is equal to the user that is logged in...then show these edit and delete buttons....also the purpose of ? is that if there is no  user it will not look at the username. */
+                            <div className="singlePostEdit">
+                                <i className="singlePostIcon fa-solid fa-pen-to-square" onClick={() => setUpdateMode(true)} ></i> {/* first i had written 'onClick={setUpdateMode(true)}' which caused the input tag on start of the page, after using arrow fn we made sure that it binds to onClick action and does not get renderd right away...thus always use functions while using event handlers to avoid the execution at the time of rendering... https://stackoverflow.com/questions/62930655/whats-the-difference-between-onclick-function-and-onclick-functi */}
+                                <i className="singlePostIcon fa-solid fa-trash" onClick={handleDelete} ></i>
+                            </div>
+                        }
+                    </h1>
+                )}
                 <div className="singlePostInfo">
-                    <span className="singlePostAuthor">Author : <b>Rahul</b></span>
-                    <span className="singlePostDate"> 1 hour ago</span>
+                    <span className="singlePostAuthor">
+                        Author :
+                        <Link className='link' to={`/?user=${post.username}`}><b>{post.username}</b></Link>         {/* imp note-- when clicked on the username we will be directed to the url="http...3000/?user={post.username}", now in home.jsx this username will then be extracted from url and all the posts of this username will be fetched (in home.jsx)whose logic is already written in our backend. */}
+                    </span>                                                                                          {/* it was important to write '?user=' bc we are using useLocation in home.jsx and extracting everything from our url itself.  */}
+                    <span className="singlePostDate">{new Date(post.createdAt).toDateString()}</span>
                 </div>
-                <p className='singlePostDesc' >Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo sequi autem alias praesentium quasi. Excepturi, culpa iure. Deleniti, accusantium enim. Mollitia obcaecati praesentium consequatur vitae quae sit eos commodi dolores quaerat dicta nisi facilis alias harum veniam eius minus saepe, ipsam odio earum enim excepturi. Aut harum beatae non optio est mollitia, omnis eius consequuntur deserunt doloribus eos asperiores et, magni, aperiam repellat assumenda quas dicta. Pariatur natus aperiam id, assumenda quos quis iure quidem culpa possimus error. Enim sequi reprehenderit ab sint nam quia perferendis ipsa ex minus totam esse vel architecto, itaque corrupti. Aspernatur, culpa ea harum ipsa inventore accusamus facilis esse molestias odio tempora cupiditate rem soluta doloribus laborum fugit dolores animi similique eaque! Eos velit accusamus ipsa reprehenderit quam dolorum reiciendis eveniet nostrum! Commodi ut eveniet asperiores voluptatem ab nemo, perferendis laboriosam iure at laudantium ea repellendus quis deserunt saepe quisquam, cumque est aspernatur iusto ipsam soluta. Corrupti veniam ad dolor modi, sunt quisquam cum dolorum nulla! Amet unde consequuntur corporis ipsam aliquid a aliquam deleniti? Est reprehenderit nihil, quas hic blanditiis velit vitae fuga molestiae ducimus architecto ipsa sed magnam delectus tenetur consectetur sint. Facere assumenda voluptatum voluptates ipsam consequatur! Fugit magnam, laborum quo odit officia eveniet a in sunt dolorum eligendi doloribus? Eum, ut necessitatibus porro qui harum suscipit quos tempore ab consequatur, distinctio vel libero amet aspernatur, atque nostrum itaque? Perspiciatis quas natus ullam debitis vero nisi nostrum similique incidunt saepe non, quis exercitationem id corporis sapiente accusantium labore quibusdam suscipit officiis ex! Et, accusantium dolore. Est magnam doloremque qui iure, facilis vero nam sit nemo veritatis eos reprehenderit minima adipisci provident rerum nesciunt? Adipisci facere mollitia ipsam, veritatis voluptatum, voluptas totam, quos explicabo dolorum recusandae deleniti aliquid modi voluptatem animi? Rerum quasi voluptas dolor blanditiis id accusantium cupiditate laboriosam, quaerat soluta quis ratione reprehenderit dignissimos! Commodi sit aperiam expedita corporis harum. Debitis voluptas dolor, recusandae iure expedita dolorem possimus, adipisci dicta hic nesciunt ipsa sed impedit pariatur fugit et quos inventore quia assumenda velit rerum quaerat consequuntur cum, commodi delectus. Odio atque dolorum quae sapiente. Quis itaque, laboriosam magni incidunt in eaque sunt dolorum dolore deleniti consequatur facilis, veniam exercitationem, soluta sed culpa doloremque iure? Corrupti commodi magnam, reprehenderit saepe eos animi cumque error consectetur. Libero vitae iure eveniet voluptatibus illo placeat dolore autem eum corporis quae maxime facere omnis alias in eos, maiores sequi nulla, dolores incidunt recusandae. Odit rem quod possimus. Inventore dolorum corporis recusandae provident eius in reprehenderit similique expedita eaque, assumenda quam laudantium itaque porro aliquid. Officia, magni fugit facilis aut sed quis nobis ratione doloribus odit expedita omnis cum placeat, incidunt necessitatibus iste molestias explicabo ipsa. Aperiam modi nostrum rem ex obcaecati natus, eveniet soluta vitae. Fuga.</p>
+                {updateMode ? (<textarea className="singlePostDescInput" value={description} onChange={(e) => { setDescription(e.target.value) }} />)
+                    : (
+                        <p className='singlePostDesc' >{description}</p>
+                    )}
+                {updateMode && <button className='singlePostUpdateBtn' onClick={handleUpdate} >Update</button>}
             </div>
         </div>
     )
 }
+

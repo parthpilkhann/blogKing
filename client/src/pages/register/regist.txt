@@ -10,14 +10,14 @@ export default function Register() {
     const [error, setError] = useState(false);
 
     const handleSubmit = async (e) => {
+        e.preventDefault()                                      //by default the page is refreshed in clicking register btn, to prevent it we use preventDefault, it will still submit the form though.
         try {
-            e.preventDefault();
-            const res = await axios.post("/auth/register", {
+            const res = await axios.post('/auth/register', {
                 username,
-                password,
-                email
+                email,
+                password
             })
-            res.data && window.location.replace("/login")
+            res.data && window.location.replace('/login')           // if res.data is not empty then replace the location in url (thw beowsers window url and not above one.)
         } catch (error) {
             setError(true)
         }
@@ -34,7 +34,7 @@ export default function Register() {
                 <label htmlFor="">Password</label>
                 <input type="password" placeholder='Enter password' onChange={(e) => setPassword(e.target.value)} />
                 <button className='registerButton' type='submit' >Register</button>
-                {error && <span style={{ color: "red", marginLeft: "13px", marginTop: "8px" }} >Something went wrong!</span>}
+                { error && <span style={{ color: "red", marginLeft: "13px", marginTop: "8px" }} >Something went wrong!</span>}
             </form>
             <button className='registerLoginButton' ><Link className='link' to='/Login' >Login</Link></button>
         </div>

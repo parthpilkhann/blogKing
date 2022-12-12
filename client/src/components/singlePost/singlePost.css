@@ -7,6 +7,8 @@
     padding: 20px;
     padding-right: 0px;
     margin-top: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 .singlePostImage {
@@ -21,6 +23,19 @@
     margin: 10px;
     font-family: 'Lora', serif;
     font-size: 28px;
+}
+
+.singlePostTitleInput {
+    text-align: center;
+    margin: 10px;
+    font-family: 'Lora', serif;
+    font-size: 28px;
+    border: 0ch;
+
+}
+
+.singlePostTitleInput:focus {
+    outline: none;
 }
 
 .singlePostEdit {
@@ -47,8 +62,32 @@
     color: rgb(87, 84, 84);
 }
 
-.singlePostDesc{
+.singlePostDesc {
     line-height: 25px;
     color: rgb(86, 85, 85);
     font-size: 18px;
+}
+
+.singlePostDescInput {
+    line-height: 25px;
+    color: rgb(86, 85, 85);
+    font-size: 18px;
+    border: none;
+}
+
+.singlePostDescInput:focus{
+    outline: none;
+}
+
+.singlePostUpdateBtn{
+    margin-top: 15px;
+    padding: 5px;
+    width: 100px;
+    align-self: flex-end;
+    background-color: teal;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+
 }
